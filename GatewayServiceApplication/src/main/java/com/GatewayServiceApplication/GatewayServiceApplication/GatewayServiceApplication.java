@@ -1,15 +1,14 @@
-package com.alumnos.microservice;
+package com.GatewayServiceApplication.GatewayServiceApplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-
 @SpringBootApplication
 @EnableEurekaClient
-public class AlumnosApplication {
+public class GatewayServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AlumnosApplication.class, args);
+		SpringApplication.run(GatewayServiceApplication.class, args);
 	}
 
 }

@@ -1,14 +1,13 @@
-package com.ConfigServiceApplication.ConfigServiceApplication;
+package com.EurekaServer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EneableEurekaServer
-public class ConfigServiceApplication {
+public class EurekaServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ConfigServiceApplication.class, args);
+		SpringApplication.run(EurekaServerApplication.class, args);
 	}
 
 }

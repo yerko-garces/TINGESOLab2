@@ -3,9 +3,10 @@ server:
 spring:
   cloud:
     config:
-      git:
-        default-label: main
-        uri: https://github.com/yerko-garces/config_data
-        search-paths: config-data
+      server:
+        git:
+          default-label: main
+          uri: https://github.com/yerko-garces/config_data
+          search-paths: config-data
 application:
   name: config-service
