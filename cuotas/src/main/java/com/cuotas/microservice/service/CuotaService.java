@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CuotaService {
@@ -26,8 +29,21 @@ public class CuotaService {
             cuota.setPagado(false);
             cuota.setC_cuotas(cantidad);
             cuota.setPago_mensual(monto);
-            cuota.setRut_alumno(rut);
+            cuota.setRut(rut);
             cuota.setF_pago(fechaInicio.plusMonths(i));
+            cuotaRepository.save(cuota);
+        }
+    }
+
+    public List<CuotaEntity> buscarPorRut(String rut) {
+        return cuotaRepository.findByRut(rut);
+    }
+
+    public void pagarCuota(Long idCuota) {
+        Optional<CuotaEntity> optionalCuota = cuotaRepository.findById(idCuota);
+        if (optionalCuota.isPresent()) {
+            CuotaEntity cuota = optionalCuota.get();
+            cuota.setPagado(true);
             cuotaRepository.save(cuota);
         }
     }

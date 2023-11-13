@@ -9,6 +9,7 @@ import BuscarParaPagarView from './views/BuscarParaPagarView.jsx';
 import MostrarAlumnosView from './views/MostrarAlumnosView.jsx';
 import CalcularCuotasView from './views/CalcularCuotasView.jsx';
 
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -33,7 +34,8 @@ const router = createBrowserRouter([
   {
     path: '/CalcularCuotasView',
     element: <CalcularCuotasView />,
-  }
+  },
+  
  
 ]);
 

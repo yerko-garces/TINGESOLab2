@@ -27,6 +27,6 @@ public class CuotaEntity {
 
     private LocalDate f_pago;
 
-    private String rut_alumno;
+    private String rut;
 }
 

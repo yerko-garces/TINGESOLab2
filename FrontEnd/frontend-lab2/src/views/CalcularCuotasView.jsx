@@ -9,6 +9,7 @@ const TuComponente = () => {
   const [montoInicial, setMontoInicial] = useState(null);
   const [cuotasSimuladas, setCuotasSimuladas] = useState('');
   const [montoSimulado, setMontoSimulado] = useState('');
+  const [mensaje, setMensaje] = useState('');
 
   const handleInputChange = (event) => {
     setRut(event.target.value);
@@ -81,15 +82,17 @@ const TuComponente = () => {
       });
   
       if (response.ok) {
-        console.log('Cuotas generadas correctamente.');
+        setMensaje('Se han creado las cuotas exitosamente.');
         // Puedes realizar acciones adicionales si es necesario
       } else {
         const errorText = await response.text();
         console.error('Error al generar cuotas:', errorText);
+        setMensaje('Error al generar cuotas: ' + errorText);
         // Puedes manejar el error de una manera específica si es necesario
       }
     } catch (error) {
       console.error('Error al procesar la solicitud:', error);
+      setMensaje('Error al procesar la solicitud: ' + error.message);
       // Puedes manejar el error de una manera específica si es necesario
     }
   };
@@ -139,7 +142,17 @@ const TuComponente = () => {
             <p>Monto por Cuota: {montoSimulado}</p>
           </div>
         )}
+
+        {mensaje && (
+          <div>
+            <p>{mensaje}</p>
+          </div>
+        )}
       </div>
+
+      <a href="/">
+        <button>Volver a inicio</button>
+      </a>
     </div>
   );
 };

@@ -8,4 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CuotaRepository extends JpaRepository<CuotaEntity, Long> {
+    List<CuotaEntity> findByRut(String rutAlumno);
 }
