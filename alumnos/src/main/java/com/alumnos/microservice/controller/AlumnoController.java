@@ -33,11 +33,6 @@ public class AlumnoController {
         return monto;
     }
 
-    @GetMapping("/cantidadCuotas/{rut}")
-    public Map<String, String> cantidadCuotas(@PathVariable String rut) {
-        return alumnoService.cantidadCuotas(rut);
-    }
-
     @GetMapping("/tipoColegio/{rut}")
     public ResponseEntity<String> obtenerTipoColegio(@PathVariable String rut) {
         System.out.println("Entrando a obtenerTipoColegio");
@@ -45,4 +40,14 @@ public class AlumnoController {
         System.out.println("Tipo de Colegio: " + tipoColegio);
         return ResponseEntity.ok().body(tipoColegio);
     }
+    @GetMapping("/montoInicial/{rut}")
+    public ResponseEntity<Double> obtenerMontoTotal(@PathVariable String rut) {
+        try {
+            Double montoTotal = alumnoService.calcularMontoTotal(rut);
+            return ResponseEntity.ok(montoTotal);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }

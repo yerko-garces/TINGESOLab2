@@ -63,31 +63,6 @@ public class AlumnoService {
         return precioInicial;
     }
 
-    public Map<String, String> cantidadCuotas(String rut) {
-        Optional<AlumnoEntity> alumno = alumnoRepository.findById(rut);
-        Map<String, String> response = new HashMap<>();
-
-        if (alumno.isPresent()) {
-            switch (alumno.get().getTipo_colegio_procedencia()) {
-                case "Municipal":
-                    response.put("cantidadCuotas", "diez");
-                    break;
-                case "Subvencionado":
-                    response.put("cantidadCuotas", "siete");
-                    break;
-                case "Privado":
-                    response.put("cantidadCuotas", "cuatro");
-                    break;
-                default:
-                    response.put("cantidadCuotas", "0");
-            }
-        } else {
-            response.put("cantidadCuotas", "0");
-        }
-
-        return response;
-    }
-
     public String obtenerTipoColegio(String rut) {
         Optional<AlumnoEntity> alumnoOptional = alumnoRepository.findById(rut);
 
@@ -99,9 +74,6 @@ public class AlumnoService {
     }
 
 
-    public Double calcularCuota(Double total, Integer cantidadCuotas){
-        Double cuotas  = total / cantidadCuotas;
-        return cuotas;
-    }
+
 }
 
