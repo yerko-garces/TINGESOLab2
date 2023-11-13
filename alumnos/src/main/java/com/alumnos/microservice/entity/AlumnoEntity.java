@@ -21,9 +21,9 @@ public class AlumnoEntity {
     @Column(unique = true, nullable = false)
     private String rut;
 
-    private String apelleido_paterno;
+    private String apellido_paterno;
 
-    private String apelleido_materno;
+    private String apellido_materno;
 
     private String primer_nombre;
 
@@ -35,7 +35,7 @@ public class AlumnoEntity {
 
     private String nombre_colegio;
 
-    private Integer año_egreso_colegio;
+    private Integer anio_egreso_colegio;
 
 }
 

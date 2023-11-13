@@ -1,62 +1,69 @@
-import React, { useState } from 'react';
+// Frontend
+import React, { useState } from "react";
 
-const Cuotas = () => {
-  const [cantidadSeleccionada, setCantidadSeleccionada] = useState(1);
-  const [resultadoCantidad, setResultadoCantidad] = useState('');
-  const [resultado, setResultado] = useState('');
-  const [cantidadOficial, setCantidadOficial] = useState('');
+function CalcularCuotasView() {
+  const [rut, setRut] = useState("");
+  const [tipoColegio, setTipoColegio] = useState("");
+  const [error, setError] = useState(null);
 
-  const handleCantidadChange = (e) => {
-    setCantidadSeleccionada(e.target.value);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    try {
+      const response = await fetch(`/alumno/tipoColegio/${rut}`);
+      const data = await response.text(); // Usa response.text() para obtener el texto directamente
+  
+      if (response.ok) {
+        setTipoColegio(data); // El tipo de colegio es un texto directo
+        setError(null); // Limpiar el error en caso de éxito
+      } else {
+        console.error("Error en la respuesta del servidor:", response.status);
+        setError("Error al obtener el tipo de colegio");
+      }
+    } catch (error) {
+      console.error("Error de red:", error);
+      setError("Error de red. Por favor, inténtelo de nuevo.");
+    }
   };
-
-  const handleCalcular = (e) => {
-    e.preventDefault();
-    // Lógica para calcular resultadoCantidad aquí
-    // Ejemplo: setResultadoCantidad("Resultado de cantidad");
-  };
-
-  const handleAceptarCuotas = (e) => {
-    e.preventDefault();
-    // Lógica para manejar la aceptación de cuotas aquí
-    // Ejemplo: setResultado("Resultado final");
-  };
+  
 
   return (
     <div>
-      <h1>Cuotas</h1>
-
-      <p>{resultadoCantidad}</p>
-
-      <form onSubmit={handleCalcular}>
-        <select name="cantidad" value={cantidadSeleccionada} onChange={handleCantidadChange}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Calcular</button>
-      </form>
-
-      <h2>Monto previo por cuota:</h2>
-      <p>{resultado}</p>
-
-      <h2>Luego de ver las opciones, ¿con cuántas cuotas se quedará?:</h2>
-      <form onSubmit={handleAceptarCuotas}>
-        <label htmlFor="cantidadOficial">Ingrese cantidad:</label>
-        <input
-          type="text"
-          id="cantidadOficial"
-          name="cantidadOficial"
-          value={cantidadOficial}
-          onChange={(e) => setCantidadOficial(e.target.value)}
-          required
-        />
-        <button type="submit">Aceptar</button>
-      </form>
+      <h1>Buscar por Rut a la persona que desea hacerle las cuotas</h1>
+      <div className="contenedor">
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="rut">Rut:</label>
+          <input
+            type="text"
+            id="rut"
+            name="rut"
+            required
+            value={rut}
+            onChange={(e) => setRut(e.target.value)}
+          />
+          <br />
+          <input type="submit" value="Buscar alumno" />
+        </form>
+      </div>
+      {error && <p>{error}</p>}
+      {tipoColegio && (
+        <div>
+          <h2>
+            {tipoColegio.includes("Municipal") && "La cantidad de cuotas posibles son 10"}
+            {tipoColegio.includes("Subvencionado") && "La cantidad de cuotas posibles son 7"}
+            {tipoColegio.includes("Privado") && "La cantidad de cuotas posibles son 4"}
+          </h2>
+        </div>
+      )}
+      <div>
+        {/* No hay contenido en esta sección */}
+        <h2></h2>
+        <a href="/">
+          <button>Volver a inicio</button>
+        </a>
+      </div>
     </div>
   );
-};
+}
 
-export default Cuotas;
+export default CalcularCuotasView;

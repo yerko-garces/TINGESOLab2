@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/alumno")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AlumnoController {
 
     @Autowired
@@ -18,5 +20,29 @@ public class AlumnoController {
     public ResponseEntity<AlumnoEntity> agregarAlumno(@RequestBody AlumnoEntity nuevoAlumno) {
         alumnoService.agregarAlumno(nuevoAlumno);
         return ResponseEntity.ok(nuevoAlumno);
+    }
+
+    @GetMapping("/todos")
+    public List<AlumnoEntity> obtenerTodosLosAlumnos() {
+        return alumnoService.mostrarAlumnos();
+    }
+
+    @GetMapping("/calcularMontoTotal/{rut}")
+    public Double calcularMontoTotal(@PathVariable String rut) {
+        Double monto = alumnoService.calcularMontoTotal(rut);
+        return monto;
+    }
+
+    @GetMapping("/cantidadCuotas/{rut}")
+    public Map<String, String> cantidadCuotas(@PathVariable String rut) {
+        return alumnoService.cantidadCuotas(rut);
+    }
+
+    @GetMapping("/tipoColegio/{rut}")
+    public ResponseEntity<String> obtenerTipoColegio(@PathVariable String rut) {
+        System.out.println("Entrando a obtenerTipoColegio");
+        String tipoColegio = alumnoService.obtenerTipoColegio(rut);
+        System.out.println("Tipo de Colegio: " + tipoColegio);
+        return ResponseEntity.ok().body(tipoColegio);
     }
 }
